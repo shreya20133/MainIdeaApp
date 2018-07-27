@@ -19,17 +19,18 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHolder>{
+public class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHolder>{
 
 
     Context context;
     private MyGroups clickedGrp;
-    private ArrayList<Double> doubleArrayList=new ArrayList<>();
+    public static ArrayList<EditModel> editModelArrayList;
 
     private GroupDao groupDao=MyAppApplication.getMyAppDatabase().getGroupDao();
     private GroupMemberDao groupMemberDao=MyAppApplication.getMyAppDatabase().getGroupMemberDao();
 
-    public EnterAmountAdapter(Context context, MyGroups clickedGrp) {
+    public EnterAmountAdapter(Context context, MyGroups clickedGrp,ArrayList<EditModel> editModelArrayList) {
+        this.editModelArrayList=editModelArrayList;
         this.context=context;
         this.clickedGrp=clickedGrp;
     }
@@ -38,6 +39,7 @@ class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHol
     @Override
     public EnterAmountAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.item_row_enter_amt_for_split,parent,false);
+
         return new ViewHolder(view);
     }
 
@@ -48,12 +50,14 @@ class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHol
         String initial=currentGrpMember.getName().substring(0,1);
         holder.textView1.setText(initial);
         holder.textView2.setText(currentGrpMember.getName());
-        if(!TextUtils.isEmpty(holder.editText.getText().toString())){
-            doubleArrayList.add(Double.valueOf(holder.editText.getText().toString()));
-        }
-        else{
-            doubleArrayList.add(0.0);
-        }
+        holder.editText.setText(editModelArrayList.get(position).getEditTextValue());
+        
+//        if(!TextUtils.isEmpty(holder.editText.getText().toString())){
+//            doubleArrayList.add(Double.valueOf(holder.editText.getText().toString()));
+//        }
+//        else{
+//            doubleArrayList.add(0.0);
+//        }
 //        groupMemberDao.updateGroupMember(currentGrpMember);
 //        groupDao.updateGroup(clickedGrp);
 
@@ -62,7 +66,7 @@ class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHol
 
     @Override
     public int getItemCount() {
-        return clickedGrp.getGroupMembersArrayList().size();
+        return editModelArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -76,10 +80,26 @@ class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.ViewHol
             textView1=itemView.findViewById(R.id.tv_itemrowenteramtforsplitIcon);
             textView2=itemView.findViewById(R.id.tv_itemrowenteramtforsplitName);
             editText=itemView.findViewById(R.id.etAddAmounttoSplit);
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    editModelArrayList.get(getAdapterPosition()).setEditTextValue(editText.getText().toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
         }
     }
 
-    public ArrayList<Double> getDoubleArrayList() {
-        return doubleArrayList;
-    }
+//    public ArrayList<Double> getDoubleArrayList() {
+//        return doubleArrayList;
+//    }
 }

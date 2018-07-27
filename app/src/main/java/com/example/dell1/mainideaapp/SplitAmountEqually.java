@@ -38,10 +38,10 @@ public class SplitAmountEqually extends AppCompatActivity{
         recyclerView1.setAdapter(splitEquallyAdapter);
 
 
-//        RecyclerView recyclerView2=findViewById(R.id.rv_settledebts);
-//        LinearLayoutManager linearLayoutManager2=new LinearLayoutManager(getBaseContext());
-//        recyclerView2.setLayoutManager(linearLayoutManager2);
-//        SettleDebtsAdapter settleDebtsAdapter=new SettleDebtsAdapter(getBaseContext(),totalsum,clickedGrp);
-//        recyclerView2.setAdapter(settleDebtsAdapter);
+        RecyclerView recyclerView2=findViewById(R.id.rv_settledebts);
+        LinearLayoutManager linearLayoutManager2=new LinearLayoutManager(getBaseContext());
+        recyclerView2.setLayoutManager(linearLayoutManager2);
+        SettleDebtsAdapter settleDebtsAdapter=new SettleDebtsAdapter(getBaseContext(),totalsum,clickedGrp);
+        recyclerView2.setAdapter(settleDebtsAdapter);
     }
 }

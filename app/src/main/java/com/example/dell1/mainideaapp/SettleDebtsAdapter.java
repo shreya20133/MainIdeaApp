@@ -11,20 +11,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class SettleDebtsAdapter extends RecyclerView.Adapter<SettleDebtsAdapter.ViewHolder> {
 
-    Context baseContext;
-    ArrayList<GroupMembers> groupMembersNewArrayList;
-    Double totalsum;
-    ArrayList<GroupMembers> payerList,owerList;
+    private  MyGroups clickedGrp;
+    private Context baseContext;
+    private Double totalsum;
+    private ArrayList<Double> balanceList;
+    private HashMap<String,Double> hashMap;
 
-    public SettleDebtsAdapter(Context baseContext, ArrayList<GroupMembers> groupMembersNewArrayList, Double totalsum) {
+    public SettleDebtsAdapter(Context baseContext,Double totalsum,MyGroups clickedGrp) {
 
         this.baseContext=baseContext;
-        this.groupMembersNewArrayList=groupMembersNewArrayList;
         this.totalsum=totalsum;
+        this.clickedGrp=clickedGrp;
     }
 
     @NonNull
@@ -48,8 +50,12 @@ public class SettleDebtsAdapter extends RecyclerView.Adapter<SettleDebtsAdapter.
     @Override
     public void onBindViewHolder(@NonNull SettleDebtsAdapter.ViewHolder holder, int position) {
 
-        GroupMembers currentGrpMember=groupMembersNewArrayList.get(position);
-        Double Payerbalance,Owerbalance,SettleBalance;
+        GroupMembers currentGrpMember=clickedGrp.getGroupMembersArrayList().get(position);
+        Double balance=currentGrpMember.getPaidAmount()-currentGrpMember.getAmountSplit();
+        balanceList.add(balance);
+        Collections.sort(balanceList);
+        hashMap.put(currentGrpMember.getName(),balance);
+        
 //        Double balance=currentGrpMember.getPaidAmount()-currentGrpMember.getAmountMemberOwestoOthers();
 //        if(balance>0){
 //            currentGrpMember.setAmountOthersOwetoMember(balance);
@@ -77,6 +83,8 @@ public class SettleDebtsAdapter extends RecyclerView.Adapter<SettleDebtsAdapter.
             textViewPayerIcon=itemView.findViewById(R.id.tv_rvsettlePayericon);
             textViewPayerName=itemView.findViewById(R.id.tv_rvsettlePayerName);
             textViewAmtOwerToPayer=itemView.findViewById(R.id.tv_rvsettleamountowertoPayer);
+            balanceList=new ArrayList<>();
+            hashMap=new HashMap<>();
         }
     }
 }
