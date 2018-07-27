@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/eventCardView"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/EventTitleStatic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event : "
+            android:fontFamily="serif-monospace"
+            android:textStyle="bold"
+            android:layout_margin="4dp"
+            android:layout_alignBaseline="@id/etAddEvent"
+            android:textSize="24sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/etAddEvent"
+            android:layout_toEndOf="@id/EventTitleStatic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_margin="4dp"
+            android:hint="Add event/purpose here"
+            android:ems="10"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

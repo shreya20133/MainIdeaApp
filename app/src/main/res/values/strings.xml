@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">App</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menuItemActivity">My Activity</string>
+    <string name="menuItemLogOut">Log Out</string>
+    <string name="menuItemGroups">My Groups</string>
+    <string name="menuItemFavourites">Favourites</string>
+    <string name="menuItemShareWithOthers">Share with others</string>
+    <string name="menuItemSendFeedback">Send Feedback</string>
+    <string name="menuItemRateMyApp">Rate My App</string>
+    <string name="enter_your_group_name">Enter your Group Name</string>
+    <string name="groupname">Group Name</string>
+</resources>

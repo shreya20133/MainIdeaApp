@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/myappBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarGroup"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/myappBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/entermembercard">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/addmmbericon"
+            app:backgroundTint="#00000000"
+            android:foreground="@drawable/addmmbericon"
+            app:fabSize="mini"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="28dp"
+            />
+            <EditText
+                android:id="@+id/etAddNewMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/fabAddMembers"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:ems="8"
+                android:hint="Add new Member"/>
+            <EditText
+                android:id="@+id/etAddMemberAmountPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/fabAddMembers"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:ems="8"
+                android:inputType="numberDecimal"
+                android:hint="Enter amount paid "
+                android:layout_below="@id/etAddNewMember"/>
+            <Button
+                android:id="@+id/addmemberBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_done_black_24dp"
+                android:layout_marginTop="28dp"
+                android:text="ADD"
+                android:gravity="top|start"
+                android:textColor="#1B5E20"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:layout_toEndOf="@id/etAddNewMember"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="28dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entermembercard">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_addMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/myappBar"
+        android:layout_margin="8dp"
+        />
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <Button
+        android:visibility="visible"
+        android:id="@+id/ContinueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#C70039"
+        android:text="CONTINUE"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:theme="@style/AppTheme.PopupOverlay"
+        />
+
+</RelativeLayout>

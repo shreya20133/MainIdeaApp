@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_MyActivity"
+            android:icon="@drawable/ic_action_name"
+            android:title="@string/menuItemActivity"
+            app:showAsAction="ifRoom|withText"
+            />
+        <item
+            android:id="@+id/nav_MyGroups"
+
+            android:title="@string/menuItemGroups"
+            app:showAsAction="ifRoom|withText"/>
+        <item
+            android:id="@+id/nav_Favourites"
+
+            android:title="@string/menuItemFavourites"
+            app:showAsAction="ifRoom|withText"/>
+
+        <item
+            android:id="@+id/nav_ShareWithOthers"
+
+            android:title="@string/menuItemShareWithOthers"
+            app:showAsAction="ifRoom|withText"/>
+
+        <item
+            android:id="@+id/nav_LogOut"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="@string/menuItemLogOut"
+            app:showAsAction="ifRoom|withText"/>
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_sendFeedBack"
+                android:title="@string/menuItemSendFeedback" />
+            <item
+                android:id="@+id/nav_RateMyApp"
+                android:title="@string/menuItemRateMyApp" />
+        </menu>
+    </item>
+
+</menu>
+
+
