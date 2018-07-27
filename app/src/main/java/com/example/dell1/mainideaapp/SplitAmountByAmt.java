@@ -58,6 +58,7 @@ public class SplitAmountByAmt extends AppCompatActivity{
             public void onClick(View view) {
 
                 for (int i = 0; i < editModelArrayList.size(); i++) {
+
                     clickedGrp.getGroupMembersArrayList().get(i).setAmountSplit(Double.valueOf(editModelArrayList.get(i).getEditTextValue()));
                     checkTotalAmount += Double.valueOf(editModelArrayList.get(i).getEditTextValue());
                 }

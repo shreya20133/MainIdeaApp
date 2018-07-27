@@ -88,7 +88,11 @@ public class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(!editText.getText().toString().equals(""))
                     editModelArrayList.get(getAdapterPosition()).setEditTextValue(editText.getText().toString());
+                    else{
+                        editModelArrayList.get(getAdapterPosition()).setEditTextValue("0.0");
+                    }
                 }
 
                 @Override
