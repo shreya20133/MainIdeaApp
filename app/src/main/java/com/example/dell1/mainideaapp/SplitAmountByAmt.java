@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class SplitAmountByAmt extends AppCompatActivity{
 
     Double totalsum;
-    MyGroups clickedGrp;
     GroupDao groupDao;
     GroupMemberDao groupMemberDao;
     Double checkTotalAmount=0.0;
@@ -28,6 +27,7 @@ public class SplitAmountByAmt extends AppCompatActivity{
     TextView textViewtotalAmount;
     RecyclerView recyclerViewEnterAmount;
     Button buttonDone;
+    int editModelArrayListSize=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,15 +39,15 @@ public class SplitAmountByAmt extends AppCompatActivity{
         recyclerViewEnterAmount = findViewById(R.id.rv_enterAmountForSplit);
         buttonDone = findViewById(R.id.doneEnterAmount);
 
-        editModelArrayList = populateList();
-
         final Intent intent = getIntent();
         totalsum = intent.getDoubleExtra("total sum", 0.0);
         final String groupDate = intent.getStringExtra("grpDate");
 
         groupDao = MyAppApplication.getMyAppDatabase().getGroupDao();
         groupMemberDao = MyAppApplication.getMyAppDatabase().getGroupMemberDao();
-        clickedGrp = groupDao.getgroupWithId(groupDate);
+        final MyGroups clickedGrp = groupDao.getgroupWithId(groupDate);
+        editModelArrayListSize=clickedGrp.getGroupMembersArrayList().size();
+        editModelArrayList = populateList();
         textViewtotalAmount.setText(String.valueOf(totalsum));
         EnterAmountAdapter enterAmountAdapter = new EnterAmountAdapter(getBaseContext(), clickedGrp, editModelArrayList);
         recyclerViewEnterAmount.setAdapter(enterAmountAdapter);
@@ -119,7 +119,7 @@ public class SplitAmountByAmt extends AppCompatActivity{
 
     private ArrayList<EditModel> populateList() {
         ArrayList<EditModel> list=new ArrayList<>();
-        for (int i=0;i<clickedGrp.getGroupMembersArrayList().size();i++){
+        for (int i=0;i<editModelArrayListSize;i++){
             EditModel editModel=new EditModel();
             list.add(editModel);
         }

@@ -55,7 +55,6 @@ public class SettleDebtsAdapter extends RecyclerView.Adapter<SettleDebtsAdapter.
         balanceList.add(balance);
         Collections.sort(balanceList);
         hashMap.put(currentGrpMember.getName(),balance);
-        
 //        Double balance=currentGrpMember.getPaidAmount()-currentGrpMember.getAmountMemberOwestoOthers();
 //        if(balance>0){
 //            currentGrpMember.setAmountOthersOwetoMember(balance);

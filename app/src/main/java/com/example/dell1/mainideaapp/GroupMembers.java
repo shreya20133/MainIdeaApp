@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Entity
 public class GroupMembers implements Parcelable{
@@ -25,6 +26,8 @@ public class GroupMembers implements Parcelable{
     private Double AmountSplit;
 
     private Double AmountMemberOwestoOthers;
+
+//    private Double Balance;
 
     @Ignore
     public GroupMembers() {
@@ -170,4 +173,17 @@ public class GroupMembers implements Parcelable{
         AmountSplit = amountSplit;
     }
 
+//    public Double getBalance() {
+//        return Balance;
+//    }
+//
+//    public void setBalance(Double balance) {
+//        Balance=balance;
+//    }
+
+//    @Override
+//    public int compareTo(@NonNull GroupMembers groupMember) {
+//        Double compareTo=((GroupMembers) groupMember).getBalance();
+//        if(this.Balance>)
+//    }
 }
