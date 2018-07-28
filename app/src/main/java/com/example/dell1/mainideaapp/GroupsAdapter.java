@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder>{
 
     Context context;
     List<MyGroups> myGroupsArrayList;
+    SaveBillDao saveBillDao=MyAppApplication.getMyAppDatabase().getSaveBillDao();
 
     public GroupsAdapter(Context context,List<MyGroups> myGroupsArrayList) {
         this.context=context;
@@ -71,6 +73,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
             grpBalance=itemView.findViewById(R.id.Group_Balance);
             grpCreateDate=itemView.findViewById(R.id.Group_createDate);
             Group=itemView.findViewById(R.id.itemGroup);
+
         }
     }
 }

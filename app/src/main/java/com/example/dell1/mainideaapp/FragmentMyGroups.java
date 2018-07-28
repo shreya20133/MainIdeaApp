@@ -28,6 +28,7 @@ public class FragmentMyGroups extends Fragment {
     List<MyGroups> myGroupsList;
     GroupsAdapter groupsAdapter;
     List<GroupMembers> grpMembersArrayList;
+    SaveBill saveBill;
 
     public FragmentMyGroups() {
     }
@@ -71,11 +72,10 @@ public class FragmentMyGroups extends Fragment {
                         GroupName = editTextGroupName.getText().toString();
                         if (!TextUtils.isEmpty(GroupName)) {
 
+
                             MyAppApplication.getMyAppDatabase().getGroupDao().insertGroup(new MyGroups(GroupName,
-                                    Calendar.getInstance().getTime().toString()
+                                     Calendar.getInstance().getTime().toString()
                                     ,grpMembersArrayList,""));
-
-
                             //groupsAdapter do baar set kia hai notifyDatasetChanged() kaam ni karra;
                             myGroupsList=MyAppApplication.getMyAppDatabase().getGroupDao().getAllGroups();
                             groupsAdapter = new GroupsAdapter(getContext(),myGroupsList);

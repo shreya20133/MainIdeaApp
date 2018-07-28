@@ -20,14 +20,10 @@ public class SettleDebtsAdapter extends RecyclerView.Adapter<SettleDebtsAdapter.
     private  MyGroups clickedGrp;
     private Context baseContext;
     private Double totalsum;
-    public Map<String,Double> hashMap=new HashMap<>();
 
-    public SettleDebtsAdapter(Context baseContext,Double totalsum,MyGroups clickedGrp,Map<String,Double> hashMap) {
 
-        this.baseContext=baseContext;
-        this.totalsum=totalsum;
-        this.clickedGrp=clickedGrp;
-        this.hashMap=hashMap;
+
+    public SettleDebtsAdapter(Context finalResult, SaveBill saveBill) {
     }
 
     @NonNull

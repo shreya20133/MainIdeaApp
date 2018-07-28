@@ -32,7 +32,7 @@ public class MyGroups implements Parcelable{
     public MyGroups() {
     }
 
-    public MyGroups(String groupName, String timeofcreation, List<GroupMembers> groupMembersArrayList,String eventName){
+    public MyGroups(String groupName, @NonNull String timeofcreation, List<GroupMembers> groupMembersArrayList, String eventName){
         this.groupName = groupName;
         this.timeofcreation = timeofcreation;
         this.groupMembersArrayList=groupMembersArrayList;

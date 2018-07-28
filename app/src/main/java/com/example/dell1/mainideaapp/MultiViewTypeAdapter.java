@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MultiViewTypeAdapter extends RecyclerView.Adapter {
@@ -24,8 +26,9 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
     private List<GroupMembers> groupMembersList;
     private Integer total_types;
     private MyGroups clickedGrp;
+    String groupDate;
     private Double totalsum=0.0;
-    private ForWhomAdapter forwhomAdapter;
+    GroupDao groupDao=MyAppApplication.getMyAppDatabase().getGroupDao();
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
 
@@ -72,12 +75,13 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
     }
 
 
-    public MultiViewTypeAdapter(Context baseContext, ArrayList<MyModel> modelArrayList, MyGroups clickedGrp) {
+    public MultiViewTypeAdapter(Context baseContext, ArrayList<MyModel> modelArrayList, MyGroups clickedGrp,String groupDate) {
 
         this.ctx=baseContext;
         this.modelArrayList=modelArrayList;
         total_types=modelArrayList.size();
         this.clickedGrp=clickedGrp;
+        this.groupDate=groupDate;
     }
 
     @NonNull
@@ -110,10 +114,12 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
 
                 case MyModel.EVENT_TYPE:
                     String eventName=((EventViewHolder) holder).editText.getText().toString();
-                    if(!TextUtils.isEmpty(eventName))
-                    clickedGrp.setEventName(eventName);
+                    if(!TextUtils.isEmpty(eventName)) {
+                        clickedGrp.setEventName(eventName);
+                        groupDao.updateGroup(clickedGrp);
+                    }
                     else{
-                        clickedGrp.setEventName(null);
+                        Toast.makeText(ctx,"Please enter Event",Toast.LENGTH_SHORT).show();
                     }
                     break;
 
@@ -127,8 +133,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         if(g.getPaidAmount()!=0.0){
                                whoPaidArrayList.add(g);
                                totalsum+=g.getPaidAmount();
+                               groupDao.updateGroup(clickedGrp);
                         }
                     }
+//                    saveBill.setGroupMembersWhoPaid(whoPaidArrayList);
+                 
                     GroupMembersAdapter groupMembersAdapter=new GroupMembersAdapter(ctx,whoPaidArrayList);
                     ((WhoPaidViewHolder) holder).recyclerViewWhoPaid.setAdapter(groupMembersAdapter);
                     ((WhoPaidViewHolder) holder).tvtotalAmount.setText(String.valueOf(totalsum));
@@ -138,7 +147,9 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
 
                     LinearLayoutManager linearLayoutManager2=new LinearLayoutManager(ctx);
                     ((ForWhomViewHolder) holder).rvForWhom.setLayoutManager(linearLayoutManager2);
-                    forwhomAdapter = new ForWhomAdapter(ctx,clickedGrp);
+                    ForWhomAdapter forwhomAdapter = new ForWhomAdapter(ctx,clickedGrp);
+//                    saveBill.setGroupMembersSplitinto(clickedGrp.getGroupMembersArrayList());
+                    groupDao.updateGroup(clickedGrp);
                     ((ForWhomViewHolder) holder).rvForWhom.setAdapter(forwhomAdapter);
                     break;
 
@@ -149,7 +160,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         public void onClick(View view) {
                             Intent intent=new Intent(view.getContext(),SplitAmountEqually.class);
                             intent.putExtra("total sum",totalsum);
-                            intent.putExtra("grpDate",clickedGrp.getTimeofcreation());
+                            intent.putExtra("grpDate",groupDate);
                             view.getContext().startActivity(intent);
                         }
                     });
@@ -160,7 +171,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         public void onClick(View view) {
                             Intent intent=new Intent(view.getContext(),SplitAmountByAmt.class);
                             intent.putExtra("total sum",totalsum);
-                            intent.putExtra("grpDate",clickedGrp.getTimeofcreation());
+                            intent.putExtra("grpDate",groupDate);
                             view.getContext().startActivity(intent);
                         }
                     });
@@ -171,7 +182,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         public void onClick(View view) {
                             Intent intent=new Intent(view.getContext(),SplitAmountByWeight.class);
                             intent.putExtra("total sum",totalsum);
-                            intent.putExtra("grpDate",clickedGrp.getTimeofcreation());
+                            intent.putExtra("grpDate",groupDate);
                             view.getContext().startActivity(intent);
                         }
                     });

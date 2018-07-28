@@ -35,13 +35,15 @@ public class AddYourExpenses extends AppCompatActivity {
         String groupDate = intent.getStringExtra("grpDate");
         clickedGrp=groupDao.getgroupWithId(groupDate);
 
+        groupDao.updateGroup(clickedGrp);
+
         modelArrayList=new ArrayList<>();
         modelArrayList.add(new MyModel(MyModel.EVENT_TYPE));
         modelArrayList.add(new MyModel(MyModel.WHOPAID_TYPE));
         modelArrayList.add(new MyModel(MyModel.FORWHOMPAID_TYPE));
         modelArrayList.add(new MyModel(MyModel.SPLIT_TYPE));
 
-        MultiViewTypeAdapter adapter=new MultiViewTypeAdapter(getBaseContext(),modelArrayList,clickedGrp);
+        MultiViewTypeAdapter adapter=new MultiViewTypeAdapter(getBaseContext(),modelArrayList,clickedGrp,groupDate);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
         RecyclerView mRecyclerView =findViewById(R.id.heterogenousrecyclerView);
         mRecyclerView.setLayoutManager(linearLayoutManager);

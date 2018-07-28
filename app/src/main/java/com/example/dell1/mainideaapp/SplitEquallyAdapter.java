@@ -29,6 +29,7 @@ public class SplitEquallyAdapter extends RecyclerView.Adapter<SplitEquallyAdapte
         this.totalsum=totalsum;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,6 +42,7 @@ public class SplitEquallyAdapter extends RecyclerView.Adapter<SplitEquallyAdapte
             }
         }
         sizeCheckList = checkList.size();
+        groupDao.updateGroup(clickedGrp);
         return new ViewHolder(view);
     }
     @Override
@@ -51,6 +53,7 @@ public class SplitEquallyAdapter extends RecyclerView.Adapter<SplitEquallyAdapte
              holder.textView1.setText(intial);
              holder.textView2.setText(currentGrpMember.getName());
              if(!currentGrpMember.getGetPaidByOther()){
+                 currentGrpMember.setGetPaidByOther(false);
                  currentGrpMember.setAmountSplit(0.0);
                  holder.textView3.setText("0.0");
                  groupMemberDao.updateGroupMember(currentGrpMember);
@@ -58,11 +61,12 @@ public class SplitEquallyAdapter extends RecyclerView.Adapter<SplitEquallyAdapte
                  Log.e("TAG", "currentGrpMemberAmountSplitBEFORE: " + currentGrpMember.getAmountSplit());
              }
              else {
+                 currentGrpMember.setGetPaidByOther(true);
              currentGrpMember.setAmountSplit(splitEqual());
              holder.textView3.setText(String.valueOf(currentGrpMember.getAmountSplit()));
                  groupMemberDao.updateGroupMember(currentGrpMember);
                  groupDao.updateGroup(clickedGrp);
-                 Log.e("TAG", "currentgrpmemberamountowedBEFORE: " + currentGrpMember.getAmountSplit());
+                 Log.e("TAG", "currentgrpmemberamountsplitBEFORE: " + currentGrpMember.getAmountSplit());
              }
     }
 
