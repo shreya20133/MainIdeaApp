@@ -26,9 +26,6 @@ public class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.
     private MyGroups clickedGrp;
     public static ArrayList<EditModel> editModelArrayList;
 
-    private GroupDao groupDao=MyAppApplication.getMyAppDatabase().getGroupDao();
-    private GroupMemberDao groupMemberDao=MyAppApplication.getMyAppDatabase().getGroupMemberDao();
-
     public EnterAmountAdapter(Context context, MyGroups clickedGrp,ArrayList<EditModel> editModelArrayList) {
         this.editModelArrayList=editModelArrayList;
         this.context=context;
@@ -51,17 +48,6 @@ public class EnterAmountAdapter extends RecyclerView.Adapter<EnterAmountAdapter.
         holder.textView1.setText(initial);
         holder.textView2.setText(currentGrpMember.getName());
         holder.editText.setText(editModelArrayList.get(position).getEditTextValue());
-        
-//        if(!TextUtils.isEmpty(holder.editText.getText().toString())){
-//            doubleArrayList.add(Double.valueOf(holder.editText.getText().toString()));
-//        }
-//        else{
-//            doubleArrayList.add(0.0);
-//        }
-//        groupMemberDao.updateGroupMember(currentGrpMember);
-//        groupDao.updateGroup(clickedGrp);
-
-
     }
 
     @Override

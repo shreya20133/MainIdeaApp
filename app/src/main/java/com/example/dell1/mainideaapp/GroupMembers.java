@@ -6,6 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,24 +28,29 @@ public class GroupMembers implements Parcelable{
 
     private Double AmountMemberOwestoOthers;
 
-//    private Double Balance;
+    private int memberweight;
+
+    private Double balance;
 
     @Ignore
     public GroupMembers() {
     }
 
-    public GroupMembers(String name, Boolean didPay,Boolean getPaidByOther, Double paidAmount,
-                        Double AmountMemberOwestoOthers, Double AmountSplit) {
+    public GroupMembers(String name, Boolean didPay, Boolean getPaidByOther, Double paidAmount,
+                        Double AmountMemberOwestoOthers, Double AmountSplit,int memberweight,Double balance) {
         this.name = name;
         this.didPay = didPay;
         this.getPaidByOther=getPaidByOther;
         this.paidAmount = paidAmount;
         this.AmountMemberOwestoOthers=AmountMemberOwestoOthers;
         this.AmountSplit=AmountSplit;
+        this.memberweight=memberweight;
+        this.balance=balance;
     }
 
     protected GroupMembers(Parcel in) {
         id=in.readInt();
+        memberweight=in.readInt();
         name = in.readString();
         byte tmpDidPay = in.readByte();
         didPay = tmpDidPay == 0 ? null : tmpDidPay == 1;
@@ -56,6 +62,11 @@ public class GroupMembers implements Parcelable{
             paidAmount = null;
         } else {
             paidAmount = in.readDouble();
+        }
+        if (in.readByte() ==0){
+            balance=null;
+        } else {
+            balance=in.readDouble();
         }
         if (in.readByte() == 0) {
             AmountMemberOwestoOthers = null;
@@ -72,6 +83,7 @@ public class GroupMembers implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeInt(memberweight);
         dest.writeString(name);
         dest.writeByte((byte) (didPay == null ? 0 : didPay ? 1 : 2));
         dest.writeByte((byte) (getPaidByOther == null ? 0 : getPaidByOther ? 1 : 2));
@@ -81,6 +93,12 @@ public class GroupMembers implements Parcelable{
         } else {
             dest.writeByte((byte) 1);
             dest.writeDouble(paidAmount);
+        }
+        if (balance == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(balance);
         }
         if (AmountMemberOwestoOthers == null) {
             dest.writeByte((byte) 0);
@@ -119,6 +137,14 @@ public class GroupMembers implements Parcelable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getMemberweight() {
+        return memberweight;
+    }
+
+    public void setMemberweight(int memberweight) {
+        this.memberweight = memberweight;
     }
 
     public static Creator<GroupMembers> getCREATOR() {
@@ -173,15 +199,15 @@ public class GroupMembers implements Parcelable{
         AmountSplit = amountSplit;
     }
 
-//    public Double getBalance() {
-//        return Balance;
-//    }
-//
-//    public void setBalance(Double balance) {
-//        Balance=balance;
-//    }
+    public Double getBalance() {
+        return balance;
+    }
 
-//    @Override
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    //    @Override
 //    public int compareTo(@NonNull GroupMembers groupMember) {
 //        Double compareTo=((GroupMembers) groupMember).getBalance();
 //        if(this.Balance>)

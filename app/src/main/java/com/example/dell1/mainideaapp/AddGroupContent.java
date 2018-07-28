@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddGroupContent extends AppCompatActivity {
@@ -37,7 +38,6 @@ public class AddGroupContent extends AppCompatActivity {
         setContentView(R.layout.addnewgroup);
 
         Intent intent = getIntent();
-//        groupname = intent.getStringExtra("GrpName");
         groupDate=intent.getStringExtra("GrpDate");
 
         groupMemberDao = MyAppApplication.getMyAppDatabase().getGroupMemberDao();
@@ -58,6 +58,7 @@ public class AddGroupContent extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getBaseContext());
         rvaddMembers.setLayoutManager(llm);
         groupMembersList=clickedGrp.getGroupMembersArrayList();
+        
         if(groupMembersList!=null)
         {
          groupMembersAdapter=new GroupMembersAdapter(getBaseContext(),groupMembersList);
@@ -69,7 +70,7 @@ public class AddGroupContent extends AppCompatActivity {
                     if (!TextUtils.isEmpty(editTextMemberName.getText().toString())) {
                         if(!TextUtils.isEmpty(editTextMemberAmountPaid.getText().toString())){
                             newgroupMember=new GroupMembers( editTextMemberName.getText().toString(),true,true,Double.valueOf(editTextMemberAmountPaid.getText().toString())
-                                    ,0.0,0.0);
+                                    ,0.0,0.0,1,0.0);
                             groupMemberDao.insertGroupMember(newgroupMember);
                             if(groupMembersList==null){
                                 groupMembersList=new ArrayList<>();
@@ -82,7 +83,7 @@ public class AddGroupContent extends AppCompatActivity {
                         }
                         else{
                             newgroupMember=new GroupMembers( editTextMemberName.getText().toString(),false,true,0.0
-                                    ,0.0,0.0);
+                                    ,0.0,0.0,1,0.0);
                             groupMemberDao.insertGroupMember(newgroupMember);
                             if(groupMembersList==null)
                             {groupMembersList=new ArrayList<>();}

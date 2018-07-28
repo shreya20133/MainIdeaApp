@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+    <TextView
+        android:id="@+id/tv_itemrowenterwtforsplitIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/userimage"
+        android:textAlignment="center"
+        android:layout_margin="4dp"
+        android:padding="4dp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textAllCaps="true"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_itemrowenterwtforsplitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_itemrowenterwtforsplitIcon"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@id/tv_itemrowenterwtforsplitIcon"
+        android:layout_marginStart="46dp"
+        android:padding="4dp"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+    <EditText
+        android:id="@+id/etAddWeighttoSplit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:layout_alignParentEnd="true"
+        android:ems="5"
+        android:inputType="numberDecimal"
+        android:cursorVisible="false"
+        android:textAlignment="center"
+        android:hint="0.0"/>
+</RelativeLayout>

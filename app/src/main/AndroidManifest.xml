@@ -26,6 +26,7 @@
         <activity android:name=".SplitAmountByAmt" />
         <activity android:name=".ShowSplitByAmt" />
         <activity android:name=".SplitAmountByWeight" />
+        <activity android:name=".ShowSplitByWeight" />
 
     </application>
 

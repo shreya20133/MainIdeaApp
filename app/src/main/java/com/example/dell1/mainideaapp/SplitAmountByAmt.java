@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,6 @@ public class SplitAmountByAmt extends AppCompatActivity{
     Double totalsum;
     GroupDao groupDao;
     GroupMemberDao groupMemberDao;
-    Double checkTotalAmount=0.0;
     public  ArrayList<EditModel> editModelArrayList;
     TextView textViewtotalAmount;
     RecyclerView recyclerViewEnterAmount;
@@ -56,25 +56,24 @@ public class SplitAmountByAmt extends AppCompatActivity{
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Double checkTotalAmount=0.0;
 
                 for (int i = 0; i < editModelArrayList.size(); i++) {
 
                     clickedGrp.getGroupMembersArrayList().get(i).setAmountSplit(Double.valueOf(editModelArrayList.get(i).getEditTextValue()));
                     checkTotalAmount += Double.valueOf(editModelArrayList.get(i).getEditTextValue());
                 }
+                Log.e("check total amount: ",""+checkTotalAmount+ "totalsum :" + totalsum);
                 groupDao.updateGroup(clickedGrp);
                 Log.e("tag before done", clickedGrp.getGroupMembersArrayList().get(1).getAmountSplit().toString());
-//                checkTotalAmount=0.0;
-//                for (GroupMembers g : clickedGrp.getGroupMembersArrayList()) {
-//                    checkTotalAmount += g.getAmountSplit();
-//                }
 
-//                if (checkTotalAmount.equals(totalsum)) {
+                if (checkTotalAmount.equals(totalsum)) {
                     Intent intent1 = new Intent(getBaseContext(), ShowSplitByAmt.class);
                     intent1.putExtra("total amount", totalsum);
+                    intent1.putExtra("grpDate",groupDate);
                     startActivity(intent1);
-//                } else {
-//                    Toast.makeText(getBaseContext(), "You exceeded total amount", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Amounts entered doesn't match total Amount paid!", Toast.LENGTH_SHORT).show();
                 }
 // else {
 //                    showDialog();
@@ -96,28 +95,11 @@ public class SplitAmountByAmt extends AppCompatActivity{
 //                    }
 ////                }
 //            }
-       });
+       }
 //
-    }
+    });
 
-
-//        TextView textView=findViewById(R.id.tvdisplayTotalAmount);
-//        RecyclerView recyclerView1=findViewById(R.id.rv_splitEqually);
-//        LinearLayoutManager linearLayoutManager1=new LinearLayoutManager(getBaseContext());
-//
-//        textView.setText(String.valueOf(totalsum));
-//        recyclerView1.setLayoutManager(linearLayoutManager1);
-//        SplitByAmountAdapter splitByAmountAdapter =new SplitByAmountAdapter(getBaseContext(),totalsum,clickedGrp);
-//        recyclerView1.setAdapter(splitByAmountAdapter);
-//
-////        RecyclerView recyclerView2=findViewById(R.id.rv_settledebts);
-////        LinearLayoutManager linearLayoutManager2=new LinearLayoutManager(getBaseContext());
-////        recyclerView2.setLayoutManager(linearLayoutManager2);
-////        SettleDebtsAdapter settleDebtsAdapter=new SettleDebtsAdapter(getBaseContext(),groupMembersNewArrayList,totalsum);
-////        recyclerView2.setAdapter(settleDebtsAdapter);
-//    }
-
-
+}
     private ArrayList<EditModel> populateList() {
         ArrayList<EditModel> list=new ArrayList<>();
         for (int i=0;i<editModelArrayListSize;i++){

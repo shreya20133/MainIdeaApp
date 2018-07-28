@@ -8,8 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-public class ShowSplitByAmt extends AppCompatActivity{
-    
+public class ShowSplitByWeight extends AppCompatActivity {
 
     GroupDao groupDao;
 
@@ -19,6 +18,7 @@ public class ShowSplitByAmt extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onclicksplit);
         Intent intent=getIntent();
+        int totalWeight=intent.getIntExtra("totalWeight",1);
         Double totalsum=intent.getDoubleExtra("total amount",0.0);
         String groupDate=intent.getStringExtra("grpDate");
 
@@ -31,8 +31,8 @@ public class ShowSplitByAmt extends AppCompatActivity{
         textView.setText(String.valueOf(totalsum));
         LinearLayoutManager linearLayoutManager1=new LinearLayoutManager(getBaseContext());
         recyclerView1.setLayoutManager(linearLayoutManager1);
-        SplitByAmountAdapter splitByAmountAdapter =new SplitByAmountAdapter(getBaseContext(),clickedGrp);
-        recyclerView1.setAdapter(splitByAmountAdapter);
+        SplitByWeightAdapter splitByWeightAdapter =new SplitByWeightAdapter(getBaseContext(),clickedGrp,totalsum,totalWeight);
+        recyclerView1.setAdapter(splitByWeightAdapter);
 
 
 //        RecyclerView recyclerView2=findViewById(R.id.rv_settledebts);
@@ -41,4 +41,5 @@ public class ShowSplitByAmt extends AppCompatActivity{
 //        SettleDebtsAdapter settleDebtsAdapter=new SettleDebtsAdapter(getBaseContext(),totalsum,clickedGrp);
 //        recyclerView2.setAdapter(settleDebtsAdapter);
     }
+
 }

@@ -9,62 +9,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SplitByWeightAdapter extends RecyclerView.Adapter<SplitByWeightAdapter.ViewHolder> {
 
     Context context;
-    private Double totalsum;
     private MyGroups clickedGrp;
-    private int sizeCheckList=0;
-    private GroupDao groupDao=MyAppApplication.getMyAppDatabase().getGroupDao();
-    private GroupMemberDao groupMemberDao=MyAppApplication.getMyAppDatabase().getGroupMemberDao();
+    Double totalsum;
+    int totalWeight;
 
-    public SplitByWeightAdapter(Context context,Double totalsum,MyGroups clickedGrp) {
+    public SplitByWeightAdapter(Context baseContext, MyGroups clickedGrp,Double totalsum,int totalWeight) {
 
-        this.context=context;
-        this.clickedGrp=clickedGrp;
+        context=baseContext;
         this.totalsum=totalsum;
+        this.clickedGrp=clickedGrp;
+        this.totalWeight=totalWeight;
     }
 
     @NonNull
     @Override
-    public SplitByWeightAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view= LayoutInflater.from(context).inflate(R.layout.item_row_rvsplitbyweight,parent,false);
-        ArrayList<GroupMembers> checkList=new ArrayList<>();
-        List<GroupMembers> groupMembersList=clickedGrp.getGroupMembersArrayList();
-        for(GroupMembers g : groupMembersList){
-            if(g.getGetPaidByOther()){
-                checkList.add(g);
-            }
-        }
-        sizeCheckList = checkList.size();
         return new SplitByWeightAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SplitByWeightAdapter.ViewHolder holder, int position){
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GroupMembers currentGrpMember=clickedGrp.getGroupMembersArrayList().get(position);
         String intial=currentGrpMember.getName().substring(0,1);
         holder.textView1.setText(intial);
         holder.textView2.setText(currentGrpMember.getName());
-        if(!currentGrpMember.getGetPaidByOther()){
-            currentGrpMember.setAmountSplit(0.0);
-            holder.textView3.setText("0.0");
-            groupMemberDao.updateGroupMember(currentGrpMember);
-            groupDao.updateGroup(clickedGrp);
-            Log.e("TAG", "currentGrpMemberAmountSplitBEFORE: " + currentGrpMember.getAmountSplit());
-        }
-        else {
-            currentGrpMember.setAmountSplit(splitByWeight());
-            holder.textView3.setText(String.valueOf(currentGrpMember.getAmountSplit()));
-            groupMemberDao.updateGroupMember(currentGrpMember);
-            groupDao.updateGroup(clickedGrp);
-            Log.e("TAG", "currentgrpmemberamountowedBEFORE: " + currentGrpMember.getAmountSplit());
-        }
+        Log.e("TAG", "total weight: "+totalWeight);
+        holder.textView3.setText(String.valueOf((currentGrpMember.getMemberweight()/totalWeight)*totalsum));
     }
 
     @Override
@@ -73,19 +51,22 @@ public class SplitByWeightAdapter extends RecyclerView.Adapter<SplitByWeightAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView textView1,textView2,textView3;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView1=itemView.findViewById(R.id.usericon);
-            textView2=itemView.findViewById(R.id.tvsplitForwhomName);
-            textView3=itemView.findViewById(R.id.tvSplitForWhomAmount);
+            textView1=itemView.findViewById(R.id.userWticon);
+            textView2=itemView.findViewById(R.id.tvsplitWtForwhomName);
+            textView3=itemView.findViewById(R.id.tvSplitForWhomWtAmount);
         }
     }
-    private double splitByWeight(){
 
-        Double equalSplitvalue=(totalsum/sizeCheckList);
-        return BigDecimal.valueOf(equalSplitvalue).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
-    }
+//    private int getTotalWeight(){
+//        int totalWeight=0;
+//        for(GroupMembers g: clickedGrp.getGroupMembersArrayList()){
+//            totalWeight+=g.getMemberweight();
+//        }
+//        return totalWeight;
+//    }
+
 }
